@@ -8,6 +8,8 @@ import Footer from "./components/partials/Footer";
 
 import Routes from "./Routes";
 
+import "./App.css";
+
 const Page = (props) => {
     return (
         <BrowserRouter>
