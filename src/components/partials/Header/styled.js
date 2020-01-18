@@ -32,4 +32,49 @@ export const HeaderArea = styled.div`
         .logo-2 { color: #00FF00 };
         .logo-3 { color: #0000FF };
     }
+
+    nav {
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+
+        li {
+            margin-left: 20px;
+            margin-right: 20px;
+
+            a {
+                color: black;
+                font-size: 14px;
+                transition: 0.3s all;
+
+                &:hover {
+                    color: #333;
+                    opacity: 0.9;
+                }
+
+                &.button {
+                    background-color: #FF8100;
+                    border-radius: 4px;
+                    color: white;
+                    padding: 5px 10px;
+
+                    &:hover {
+                        background-color: #E57706;
+                    }
+                }
+            }
+        }
+    }
 `;
