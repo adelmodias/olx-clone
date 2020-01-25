@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PageArea } from './styled';
 import { PageContainer, PageTitle, ErrorMessage } from '../../components/MainComponents';
 import useApi from '../../helpers/OlxAPI';
-// import { doLogin } from '../../helpers/AuthHandler';
+import { doLogin } from '../../helpers/AuthHandler';
 
 const SignIn = () => {
     const api = useApi();
@@ -29,15 +29,22 @@ const SignIn = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setDisabled(true);
+        setError('');
 
-        // const json = await api.login(email, password);
+        if ( password !== confirmPassword ) {
+            setError('Confirmação de senha com erro!');
+            setDisabled(false);
+            return;
+        }
 
-        // if (json.error) {
-        //     setError(json.error);
-        // } else {
-        //     doLogin(json.token, rememberPassword);
-        //     window.location.href = '/';
-        // }
+        const json = await api.register(name, stateLoc, email, password, confirmPassword);
+
+        if (json.error) {
+            setError(json.error);
+        } else {
+            doLogin(json.token);
+            window.location.href = '/';
+        }
 
         setDisabled(false);
     }
