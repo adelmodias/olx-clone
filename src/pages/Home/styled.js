@@ -87,6 +87,10 @@ export const PageArea = styled.div `
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
+
+        .ad-item {
+            width: 25%;
+        }
     }
 
     .viewAllAds {
