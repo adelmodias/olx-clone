@@ -24,7 +24,8 @@ export const PageArea = styled.div `
             .area--input {
                 flex: 1;
 
-                input:not([type=checkbox]) {
+                input:not([type=checkbox]),
+                select {
                     width: 100%;
                     font-size: 14px;
                     padding: 5px;
@@ -32,6 +33,7 @@ export const PageArea = styled.div `
                     border-radius: 3px;
                     outline: 0;
                     transition: all ease .4s;
+                    background: none;
 
                     &:focus {
                         border: 1px solid #333;
