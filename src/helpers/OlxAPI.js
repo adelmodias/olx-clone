@@ -32,7 +32,6 @@ const apiFetchPost = async (endpoint, body) => {
     return json;
 }
 
-// eslint-disable-next-line
 const apiFetchGet = async (endpoint, body = []) => {
 
     if ( !body.token ) {
@@ -81,6 +80,11 @@ const OlxAPI = {
     getCategories:async () => {
         const json = await apiFetchGet('/categories');
         return json.categories;
+    },
+
+    getAds:async (options) => {
+        const json = await apiFetchGet('/ad/list', options);
+        return json;
     }
 
 };

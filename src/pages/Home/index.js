@@ -9,6 +9,7 @@ const Home = () => {
 
     const [stateList, setStateList] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [adsList, setAdsList] = useState([]);
 
     useEffect(() => {
         const getStates = async () => {
@@ -16,7 +17,7 @@ const Home = () => {
             setStateList(slist);
         }
         getStates();
-    }, []);
+    });
 
     useEffect(() => {
         const getCategories = async () => {
@@ -24,7 +25,18 @@ const Home = () => {
             setCategories(cats);
         }
         getCategories();
-    }, []);
+    });
+
+    useEffect(() => {
+        const getRecentAds = async () => {
+            const json = await api.getAds({
+                sort: 'desc',
+                limit: 8
+            });
+            setAdsList(json.ads);
+        }
+        getRecentAds();
+    });
 
     return (
         <>
