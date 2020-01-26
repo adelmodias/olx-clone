@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PageArea, SearchArea } from './styled';
-import { PageContainer } from '../../components/MainComponents';
 import useApi from '../../helpers/OlxAPI';
+
+import { PageContainer } from '../../components/MainComponents';
+import AdItem from '../../components/partials/adItem';
 
 const Home = () => {
     const api = useApi();
@@ -17,7 +19,7 @@ const Home = () => {
             setStateList(slist);
         }
         getStates();
-    });
+    }, []);
 
     useEffect(() => {
         const getCategories = async () => {
@@ -25,7 +27,7 @@ const Home = () => {
             setCategories(cats);
         }
         getCategories();
-    });
+    }, []);
 
     useEffect(() => {
         const getRecentAds = async () => {
@@ -36,7 +38,7 @@ const Home = () => {
             setAdsList(json.ads);
         }
         getRecentAds();
-    });
+    }, []);
 
     return (
         <>
@@ -65,7 +67,19 @@ const Home = () => {
 
             <PageContainer>
                 <PageArea>
-                    ...
+                    <h2>Anúncios Recentes</h2>
+
+                    <div className="list">
+                        {adsList.map((item, index) =>
+                            <AdItem key={index} data={item} />
+                        )}
+                    </div>
+
+                    <Link to="/ads" className="viewAllAds">Ver todos</Link>
+
+                    <hr />
+
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut itaque debitis ad officia perferendis est quo consequatur eveniet quis, adipisci eos laboriosam error labore assumenda nesciunt, illo impedit ipsam necessitatibus?</p>
                 </PageArea>
             </PageContainer>
         </>
