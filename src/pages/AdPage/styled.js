@@ -105,6 +105,7 @@ export const RelatedArea = styled.div`
 
     .relatedProducts {
         display: flex;
+        flex-wrap: wrap;
 
         .ad-item {
             width: 25%;
