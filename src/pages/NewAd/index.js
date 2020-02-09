@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { PageArea } from './styled';
 import { PageContainer, PageTitle, ErrorMessage } from '../../components/MainComponents';
 import useApi from '../../helpers/OlxAPI';
@@ -7,8 +8,8 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 const NewAd = () => {
     const api = useApi();
-
     const fileField = useRef();
+    const history = useHistory();
 
     const [categories, setCategories] = useState([]);
 
@@ -33,15 +34,44 @@ const NewAd = () => {
         event.preventDefault();
         setDisabled(true);
         setError('');
+        let errors = [];
 
-        // const json = await api.login(email, password);
+        if ( !title.trim() ) {
+            errors.push('Digite o título do anúncio.');
+        }
 
-        // if (json.error) {
-        //     setError(json.error);
-        // } else {
-        //     doLogin(json.token, rememberPassword);
-        //     window.location.href = '/';
-        // }
+        if ( !category ) {
+            errors.push('Selecione uma categoria.');
+        }
+
+        if ( errors.length === 0 ) {
+            const fData = new FormData();
+            fData.append('title', title);
+            fData.append('cat', category);
+            fData.append('price', price);
+            fData.append('priceneg', priceNegotiable);
+            fData.append('desc', description);
+            
+            let fLength = fileField.current.files;
+
+            if ( fLength.length > 0 ) {
+                for(let i = 0; i < fLength.length; i++) {
+                    fData.append('img', fLength[i]);
+                }
+            }
+
+            const json = await api.addAd(fData);
+
+            if ( !json.error ) {
+                history.push(`/ad/${json.id}`);
+                return;
+            } else {
+                setError(json.error);
+            }
+
+        } else {
+            setError(errors.join("\n"));
+        }
 
         setDisabled(false);
     }
@@ -75,7 +105,7 @@ const NewAd = () => {
                         <div className="area--title">Categoria</div>
                         <div className="area--input">
                             <select onChange={e=>setCategory(e.target.value)} disabled={disabled} required>
-                                <option selected disabled>Selecione uma categoria</option>
+                                <option>Selecione uma categoria</option>
                                 {categories && categories.map(i =>
                                     <option key={i._id} value={i._id}>{i.name}</option>
                                 )}
