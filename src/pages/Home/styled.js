@@ -25,6 +25,7 @@ export const SearchArea = styled.div `
                 font-size: 15px;
                 color: black;
                 margin-right: 20px;
+                background: white;
             }
 
             input {
