@@ -26,7 +26,6 @@ const Ads = () => {
     const [adsList, setAdsList] = useState([]);
 
     const [resultOpacity, setResultOpacity] = useState(1);
-    const [warningMessage, setWarningMessage] = useState('Carregando...');
     const [loading, setLoading] = useState(true);
 
     const getAdsList = async () => {
