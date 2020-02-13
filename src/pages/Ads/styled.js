@@ -7,6 +7,7 @@ export const PageArea = styled.div `
     .leftSide {
         width: 250px;
         margin-right: 10px;
+        padding-right: 20px;
 
         .filterName {
             font-size: 15px;
@@ -65,6 +66,11 @@ export const PageArea = styled.div `
         h2 {
             margin-top: 0;
             font-size: 18px;
+        }
+
+        .listWarning {
+            padding: 30px;
+            text-align: center;
         }
 
         .list {
