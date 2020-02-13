@@ -62,7 +62,7 @@ const Ads = () => {
                             ) }
                         </ul>
 
-                        {/* <button>Pesquisa</button> */}
+                        <button>Pesquisa</button>
                     </form>
                 </div>
 
