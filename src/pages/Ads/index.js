@@ -4,7 +4,9 @@ import { PageArea } from './styled';
 import useApi from '../../helpers/OlxAPI';
 
 import { PageContainer } from '../../components/MainComponents';
-// import AdItem from '../../components/partials/adItem';
+import AdItem from '../../components/partials/adItem';
+
+let timer;
 
 const Ads = () => {
     const api = useApi();
@@ -22,6 +24,20 @@ const Ads = () => {
     const [stateList, setStateList] = useState([]);
     const [categories, setCategories] = useState([]);
     const [adsList, setAdsList] = useState([]);
+
+    const [resultOpacity, setResultOpacity] = useState(1);
+
+    const getAdsList = async () => {
+        const json = await api.getAds({
+            sort: 'desc',
+            limit: 9,
+            q,
+            cat,
+            state
+        });
+        setAdsList(json.ads);
+        setResultOpacity(1);
+    }
 
     useEffect(() => {
         let queryString = [];
@@ -41,6 +57,12 @@ const Ads = () => {
         history.replace({
             search: `?${queryString.join('&')}`
         });
+
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(getAdsList, 1500);
+        setResultOpacity(0.3);
     }, [q, cat, state]);
 
     useEffect(() => {
@@ -57,17 +79,6 @@ const Ads = () => {
             setCategories(cats);
         }
         getCategories();
-    }, []);
-
-    useEffect(() => {
-        const getRecentAds = async () => {
-            const json = await api.getAds({
-                sort: 'desc',
-                limit: 8
-            });
-            setAdsList(json.ads);
-        }
-        getRecentAds();
     }, []);
 
     return (
@@ -112,7 +123,13 @@ const Ads = () => {
                 </div>
 
                 <div className="rightSide">
-                    right
+                    <h2>Resultados da busca</h2>
+
+                    <div className="list" style={{opacity:resultOpacity}}>
+                        {adsList.map( (item, key) =>
+                            <AdItem key={key} data={item}></AdItem>
+                        )}
+                    </div>
                 </div>
             </PageArea>
         </PageContainer>
