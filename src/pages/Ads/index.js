@@ -8,6 +8,7 @@ import { PageContainer } from '../../components/MainComponents';
 
 const Ads = () => {
     const api = useApi();
+    const history = useHistory();
 
     const useQueryString = () => {
         return new URLSearchParams( useLocation().search );
@@ -21,6 +22,26 @@ const Ads = () => {
     const [stateList, setStateList] = useState([]);
     const [categories, setCategories] = useState([]);
     const [adsList, setAdsList] = useState([]);
+
+    useEffect(() => {
+        let queryString = [];
+
+        if(q) {
+            queryString.push(`q=${q}`);
+        }
+
+        if(cat) {
+            queryString.push(`cat=${cat}`);
+        }
+
+        if(state) {
+            queryString.push(`state=${state}`);
+        }
+        
+        history.replace({
+            search: `?${queryString.join('&')}`
+        });
+    }, [q, cat, state]);
 
     useEffect(() => {
         const getStates = async () => {
@@ -54,17 +75,32 @@ const Ads = () => {
             <PageArea>
                 <div className="leftSide">
                     <form method="GET">
-                        <input type="text" name="q" placeholder="O que você procura?" value={q} />
+                        <input 
+                            type="text"
+                            name="q"
+                            placeholder="O que você procura?"
+                            value={q} 
+                            onChange={e => setQ(e.target.value)}
+                        />
                         
                         <div className="filterName">Estado:</div>
-                        <select name="state" value={state}>
+                        <select
+                            name="state"
+                            value={state}
+                            onChange={e => setState(e.target.value)}
+                        >
                             {stateList.map((item, index) => <option key={index} value={item.name}>{item.name}</option>)}
                         </select>
 
                         <div className="filterName">Categoria:</div>
                         <ul>
                             {categories.map( (item, index) => 
-                                <li key={index} value={item.name} className={cat==item.slug?'categoryItem active':'categoryItem'}>
+                                <li
+                                    key={index}
+                                    value={item.name}
+                                    className={cat==item.slug?'categoryItem active':'categoryItem'}
+                                    onClick={() => setCat(item.slug)}
+                                >
                                     <img src={item.img} alt={item.name} />
                                     <span>{item.name}</span>
                                 </li>
