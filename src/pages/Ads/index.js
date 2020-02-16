@@ -32,12 +32,15 @@ const Ads = () => {
     const [loading, setLoading] = useState(true);
 
     const getAdsList = async () => {
+        var offset = (currentPage - 1) * 2;
+
         const json = await api.getAds({
             sort: 'desc',
-            limit: 9,
+            limit: 6,
             q,
             cat,
-            state
+            state,
+            offset
         });
         setAdsList(json.ads);
         setTotalAds(json.total);
@@ -54,6 +57,11 @@ const Ads = () => {
         }
 
     }, [totalAds]);
+
+    useEffect(() => {
+        setResultOpacity(0.3);
+        getAdsList();
+    }, [currentPage]);
 
     useEffect(() => {
         let queryString = [];
@@ -150,9 +158,10 @@ const Ads = () => {
                 <div className="rightSide">
                     <h2>Resultados da busca</h2>
 
-                    {loading && 
+                    {loading && adsList.length === 0 &&
                         <div className="listWarning">Carregando...</div>
                     }
+                    
                     {!loading && adsList.length === 0 &&
                         <div className="listWarning">Nenhum resultado encontrado!</div>
                     }
