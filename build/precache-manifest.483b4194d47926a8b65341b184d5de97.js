@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e6d3ad8d73f780bc88d56fe0f549020c",
+    "revision": "7e90809fa268ee22214e0d68dcc19686",
     "url": "/olx-clone/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/olx-clone/static/css/2.3e14f9b5.chunk.css"
   },
   {
-    "revision": "51fb868febc012cd0cf3",
+    "revision": "a83ba0855d2064a98345",
     "url": "/olx-clone/static/css/main.cb6c6e55.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/olx-clone/static/js/2.3d153495.chunk.js.LICENSE"
   },
   {
-    "revision": "51fb868febc012cd0cf3",
-    "url": "/olx-clone/static/js/main.9444e435.chunk.js"
+    "revision": "a83ba0855d2064a98345",
+    "url": "/olx-clone/static/js/main.687d74d6.chunk.js"
   },
   {
     "revision": "d77d8b415e2229f6a85a",

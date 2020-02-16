@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/olx-clone/precache-manifest.5e75ecd1a2d10c83d58e9fd5e0a87c3e.js"
+  "/olx-clone/precache-manifest.483b4194d47926a8b65341b184d5de97.js"
 );
 
 self.addEventListener('message', (event) => {
