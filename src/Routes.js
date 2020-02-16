@@ -15,31 +15,31 @@ import NewAd from './pages/NewAd';
 export default () => {
     return  (
         <Switch>
-            <RouteHandler exact path="/">
+            <RouteHandler exact path="./">
                 <Home />
             </RouteHandler>
 
-            <RouteHandler exact path="/sobre">
+            <RouteHandler exact path="./sobre">
                 <About />
             </RouteHandler>
 
-            <RouteHandler exact path="/signin">
+            <RouteHandler exact path="./signin">
                 <SignIn />
             </RouteHandler>
 
-            <RouteHandler exact path="/signup">
+            <RouteHandler exact path="./signup">
                 <SignUp />
             </RouteHandler>
 
-            <RouteHandler exact path="/ad/:id">
+            <RouteHandler exact path="./ad/:id">
                 <AdPage />
             </RouteHandler>
 
-            <RouteHandler exact path="/ads">
+            <RouteHandler exact path="./ads">
                 <Ads />
             </RouteHandler>
 
-            <RouteHandler private exact path="/post-an-ad">
+            <RouteHandler private exact path="./post-an-ad">
                 <NewAd />
             </RouteHandler>
 

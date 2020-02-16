@@ -16,7 +16,7 @@ const Header = () => {
         <HeaderArea>
             <div className="container">
                 <div className="logo">
-                    <Link to="/">
+                    <Link to="./">
                         <span className="logo-1">O</span>
                         <span className="logo-2">L</span>
                         <span className="logo-3">X</span>
