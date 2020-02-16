@@ -21,9 +21,12 @@ const Ads = () => {
     const [cat, setCat] = useState( query.get('cat') != null ? query.get('cat') : '' );
     const [state, setState] = useState( query.get('state') != null ? query.get('state') : '' );
 
+    const [totalAds, setTotalAds] = useState(0);
     const [stateList, setStateList] = useState([]);
     const [categories, setCategories] = useState([]);
     const [adsList, setAdsList] = useState([]);
+    const [pageCount, setPageCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const [resultOpacity, setResultOpacity] = useState(1);
     const [loading, setLoading] = useState(true);
@@ -37,9 +40,20 @@ const Ads = () => {
             state
         });
         setAdsList(json.ads);
+        setTotalAds(json.total);
         setResultOpacity(1);
         setLoading(false);
     }
+
+    useEffect(() => {
+
+        if ( adsList.length > 0 ) {
+            setPageCount( Math.ceil( totalAds / adsList.length ) );
+        } else {
+            setPageCount( 0 );
+        }
+
+    }, [totalAds]);
 
     useEffect(() => {
         let queryString = [];
@@ -63,9 +77,12 @@ const Ads = () => {
         if (timer) {
             clearTimeout(timer);
         }
+
+        setCurrentPage(1);
         setLoading(true);
         timer = setTimeout(getAdsList, 1500);
         setResultOpacity(0.3);
+        
     }, [q, cat, state]);
 
     useEffect(() => {
@@ -83,6 +100,11 @@ const Ads = () => {
         }
         getCategories();
     }, []);
+
+    let pagination = [];
+    for(let i=1; i <= pageCount; i++) {
+        pagination.push(i);
+    }
 
     return (
         <PageContainer>
@@ -138,6 +160,12 @@ const Ads = () => {
                     <div className="list" style={{opacity:resultOpacity}}>
                         {adsList.map( (item, key) =>
                             <AdItem key={key} data={item}></AdItem>
+                        )}
+                    </div>
+
+                    <div className="pagination">
+                        {pagination.map((item, key) =>
+                            <div onClick={() => setCurrentPage(item)} className={item===currentPage?'paginationItem active':'paginationItem'} key={key}>{item}</div>
                         )}
                     </div>
                 </div>
